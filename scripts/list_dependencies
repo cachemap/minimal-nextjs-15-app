@@ -1,0 +1,9 @@
+# Lists installed dependencies in your package.json and their current version numbers
+# Explanation at https://chatgpt.com/share/67d373b5-a2b8-8000-b7cd-77623fabbdab
+(
+    yarn list --depth=0 --prod --json
+    yarn list --depth=0 --dev --json
+) | jq -r --argjson deps \
+"$(jq '{dependencies, devDependencies} | add | keys' package.json)" \
+'.data.trees[] | select(.name | split("@")[0] as $pkg | $deps | index($pkg)) | .name'\
+| sort -u
