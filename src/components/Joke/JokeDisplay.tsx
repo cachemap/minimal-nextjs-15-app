@@ -8,7 +8,7 @@ function JokeDisplay({ initialData }) {
     queryKey: ['joke'],
     queryFn: () => getJoke,
     initialData, // populate client-side cache with SSRed data
-    // refetchInterval: 60 * 1000, // periodically refetch fresh data client-side
+    refetchInterval: 60 * 1000, // periodically refetch fresh data client-side
   });
 
   return <div>{data}</div>;
